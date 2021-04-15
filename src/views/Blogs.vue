@@ -1,5 +1,8 @@
 <template>
-    Blogs
+    <div>
+        Blogs
+    </div>
+
 </template>
 
 <script>

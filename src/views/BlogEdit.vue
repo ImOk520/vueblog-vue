@@ -1,5 +1,8 @@
 <template>
-    BlogEdit
+    <div>
+        BlogEdit
+    </div>
+
 </template>
 
 <script>

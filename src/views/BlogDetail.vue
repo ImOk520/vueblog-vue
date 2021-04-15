@@ -1,5 +1,8 @@
 <template>
-    BlogDetail
+    <div>
+        BlogDetail
+    </div>
+
 </template>
 
 <script>
