@@ -49,7 +49,7 @@
                     if (valid) {
                         alert('submit!');
                         const _this = this
-                        this.$axios.post('http://localhost:9696/login', this.ruleForm).then(res => {
+                        this.$axios.post('/login', this.ruleForm).then(res => {
                             console.log(res.headers)
                             console.log(res)
                             const jwt = res.headers['authorization']
