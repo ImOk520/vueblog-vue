@@ -1,9 +1,10 @@
 <template>
     <div>
         <Header></Header>
-        <div class="m-blog">
+
+        <div class="mblog">
             <h2> {{ blog.title }}</h2>
-            <el-link icon="el-icon-edit" v-if="ownBlog">
+            <el-link icon="el-icon-edit">
                 <router-link :to="{name: 'BlogEdit', params: {blogId: blog.id}}" >
                     编辑
                 </router-link>
@@ -12,6 +13,7 @@
             <div class="markdown-body" v-html="blog.content"></div>
 
         </div>
+
     </div>
 </template>
 
@@ -22,26 +24,32 @@
     export default {
         name: "BlogDetail.vue",
         components: {Header},
-        data(){
-            return{
-                blog:{
-                    id:"",
-                    title:"",
-                    content:""
-                }
+        data() {
+            return {
+                blog: {
+                    id: "",
+                    title: "",
+                    content: ""
+                },
+                // 默认不可编辑
+                ownBlog: false
             }
         },
         created() {
             const blogId = this.$route.params.blogId
+            console.log(blogId)
             const _this = this
             this.$axios.get('/blog/' + blogId).then(res => {
                 const blog = res.data.data
                 _this.blog.id = blog.id
                 _this.blog.title = blog.title
+
                 var MardownIt = require("markdown-it")
                 var md = new MardownIt()
+
                 var result = md.render(blog.content)
                 _this.blog.content = result
+                // 同一用户才可编辑
                 _this.ownBlog = (blog.userId === _this.$store.getters.getUser.id)
             })
         }
@@ -49,10 +57,11 @@
 </script>
 
 <style scoped>
-    .m-blog {
+    .mblog {
         box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
         width: 100%;
         min-height: 700px;
         padding: 20px 15px;
     }
+
 </style>
